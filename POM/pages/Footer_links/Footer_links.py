@@ -1,74 +1,42 @@
-from selenium import webdriver
-from selenium.webdriver.support import ui
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver import ActionChains
+
+import utilities.custom_logger as cl
+import logging
+from base.basepage import BasePage
 from selenium.webdriver.common.by import By
 import time
 
-#chrome_options=webdriver.ChromeOptions()
-#chrome_options.add_argument('window-size=1400,800')
-#chrome_options.add_argument('--headless')
+class validateFooter(BasePage):
 
-driver=webdriver.Chrome(executable_path="C:\Drivers\chromedriver_win32\chromedriver.exe")
-driver.maximize_window()
+    log = cl.customLogger(logging.DEBUG)
 
+    def __init__(self, driver):
+        super().__init__(driver)
+        self.driver = driver
 
-driver.get("http://apexdcsqa.azurewebsites.net")
-#driver.execute_script("window.open('https://www.google.it/');")  opening url in new tab
-driver.find_element(By.XPATH,"//a[contains(text(),'Home')]").click()
+#Locators
+    _home_footer = "//a[@href='https://www.datacolor.com/']"
+    _company_footer = "//a[contains(text(),'Company')]"
+    _portfolio_footer = "//a[contains(text(),'Portfolio')]"
+    _blog_footer = "//a[contains(text(),'Blog')]"
+    _support_footer = "//a[contains(text(),'Support')]"
 
+# Element Interaction
+    def clickHomefooter(self):
+        self.elementClick(self._home_footer,locatorType="xpath")
+        time.sleep(3)
 
-time.sleep(1)
-driver.get("http://apexdcsqa.azurewebsites.net")
-driver.find_element(By.XPATH,"//a[contains(text(),'Company')]").click()
+    def clickCompanyfooter(self):
+        self.elementClick(self._company_footer,locatorType="xpath")
+        time.sleep(3)
 
-time.sleep(1)
-driver.get("http://apexdcsqa.azurewebsites.net")
-driver.find_element(By.XPATH,"//a[contains(text(),'Portfolio')]").click()
+    def clickPortfoliofooter(self):
+        self.elementClick(self._portfolio_footer,locatorType="xpath")
+        time.sleep(3)
 
-time.sleep(1)
-driver.get("http://apexdcsqa.azurewebsites.net")
-driver.find_element(By.XPATH,"//a[contains(text(),'Blog')]").click()
+    def clickBlogfooter(self):
+        self.elementClick(self._blog_footer,locatorType="xpath")
+        time.sleep(3)
 
-
-main=driver.get("http://apexdcsqa.azurewebsites.net")
-
-email_ele=driver.find_element_by_name("email")
-print(email_ele.is_enabled())
-pass_ele=driver.find_element_by_name("password")
-print(pass_ele.is_enabled())
-
-time.sleep(2)
-email_ele.send_keys("asharma@datacolor.com")
-pass_ele.send_keys("Aa7654321")
-driver.find_element_by_name("submit").click()
-
-time.sleep(10)
-driver.find_element(By.XPATH,"//a[contains(text(),'Home')]").click()
-time.sleep(5)
-driver.switch_to.window(driver.window_handles[1])
-driver.close()
-
-driver.switch_to.window(driver.window_handles[0])
-time.sleep(2)
-driver.find_element(By.XPATH,"//a[contains(text(),'Company')]").click()
-time.sleep(5)
-driver.switch_to.window(driver.window_handles[1])
-driver.close()
-
-driver.switch_to.window(driver.window_handles[0])
-time.sleep(2)
-driver.find_element(By.XPATH,"//a[contains(text(),'Portfolio')]").click()
-time.sleep(5)
-driver.switch_to.window(driver.window_handles[1])
-driver.close()
-
-driver.switch_to.window(driver.window_handles[0])
-driver.find_element(By.XPATH,"//a[contains(text(),'Blog')]").click()
-time.sleep(5)
-driver.switch_to.window(driver.window_handles[1])
-driver.close()
-
-
-driver.switch_to.window(driver.window_handles[0])
-driver.close()
+    def clickSupportfooter(self):
+        self.elementClick(self._support_footer,locatorType="xpath")
+        time.sleep(3)
